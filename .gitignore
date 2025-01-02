@@ -3,3 +3,6 @@ dataset/Elliptic++ Dataset/wallets_features.csv
 dataset/Elliptic++ Dataset/txs_features.csv
 dataset/Elliptic++ Dataset/AddrAddr_edgelist.csv
 dataset/Elliptic++ Dataset
+
+dataset/custom/wallets_features_aggregated.csv
+dataset/custom/wallets_features_extended.csv
