@@ -1,7 +1,7 @@
 from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
-from sklearn.metrics import accuracy_score, precision_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score, fbeta_score
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -59,6 +59,14 @@ def prepare_wallets_features_data(data, type):
         res["one_input_tx"] = (res["num_txs_as_sender"] == 1).astype(int)
         res["one_output_tx"] = (res["num_txs_as receiver"] == 1).astype(int)
 
+        # res1 = res[res["num_txs_as receiver"] == 0]
+        # res2 = res[res["num_txs_as receiver"] != 0]
+        # res2["input_to_output_tx_ratio"] = (
+        #     res2["num_txs_as_sender"] / res2["num_txs_as receiver"]
+        # ).fillna(0)
+        # res1["input_to_output_tx_ratio"] = 0
+        # res = pd.concat([res1, res2])
+
         # res["one_receiving"] = (res["user_incoming_tx_cnt"] == 1).astype(int)
         # res["one_sending"] = (res["user_outcoming_tx_cnt"] == 1).astype(int)
         # res["one_sending_and_receiving"] = ((res["user_outcoming_tx_cnt"] == 1) & (res["user_incoming_tx_cnt"] == 1)).astype(int)
@@ -94,6 +102,7 @@ def get_best_threshold(pred_probas, y_true, plot=True, thrs_cnt=20, return_hists
     precicion_hist = []
     recall_hist = []
     f1_hist = []
+    fb_hist = []
     for thr in thrs:
         y_pred = (pred_probas >= thr).astype(int)
         prec = precision_score(y_true, y_pred)
@@ -106,6 +115,7 @@ def get_best_threshold(pred_probas, y_true, plot=True, thrs_cnt=20, return_hists
         precicion_hist.append(prec)
         recall_hist.append(rec)
         f1_hist.append(f1)
+        fb_hist.append(fbeta_score(y_true, y_pred, beta=4))
     best_ind = np.argmax(f1_hist)
 
     if plot:
@@ -114,14 +124,16 @@ def get_best_threshold(pred_probas, y_true, plot=True, thrs_cnt=20, return_hists
         Best F1: {f1_hist[best_ind]}, precicion: {precicion_hist[best_ind]}, recall: {recall_hist[best_ind]}
         """)
             
-        fig, ax = plt.subplots(1,3,figsize=(12,3))
+        fig, ax = plt.subplots(1,4,figsize=(15,3))
         sns.lineplot(x=thrs, y=precicion_hist, ax=ax[0])
         sns.lineplot(x=thrs, y=recall_hist, ax=ax[1])
         sns.lineplot(x=thrs, y=f1_hist, ax=ax[2])
+        sns.lineplot(x=thrs, y=fb_hist, ax=ax[3])
         
         ax[0].set_title("Precicion")
         ax[1].set_title("Recall")
         ax[2].set_title("F1")
+        ax[3].set_title("F-beta")
     
     if return_hists:
         return {
@@ -136,3 +148,26 @@ def get_best_threshold(pred_probas, y_true, plot=True, thrs_cnt=20, return_hists
         "recall": recall_hist[best_ind],
         "f1": f1_hist[best_ind],
     }
+
+
+def print_confusion_matrix(pred_proba, thr, y_true):
+    y_pred = (pred_proba >= thr).astype(int)
+    tp = ((y_pred == 1) & (y_true == 1)).sum()
+    fp = ((y_pred == 1) & (y_true == 0)).sum()
+    fn = ((y_pred == 0) & (y_true == 1)).sum()
+    tn = ((y_pred == 0) & (y_true == 0)).sum()
+    print(f"\treal 1\treal 0")
+    print(f"pred 1\t{tp}\t{fp}\t")
+    print(f"pred 0\t{fn}\t{tn}\t")
+
+def get_addr_position(addrId, wallets_data):
+    wallets_addrs = wallets_data["addrId"]
+    classes = wallets_data["class"]
+    train, test, _, _ = train_test_split(wallets_addrs, classes, test_size=0.3, random_state=42)
+    test = test.reset_index()["addrId"]
+    train = train.reset_index()["addrId"]
+    if train.isin([addrId]).sum():
+        return "train", train.index[train == addrId].tolist()[0]
+    if test.isin([addrId]).sum():
+        return "test", test.index[test == addrId].tolist()[0]
+    return None
