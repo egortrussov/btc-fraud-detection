@@ -4,5 +4,10 @@ dataset/Elliptic++ Dataset/txs_features.csv
 dataset/Elliptic++ Dataset/AddrAddr_edgelist.csv
 dataset/Elliptic++ Dataset
 
-dataset/custom/wallets_features_aggregated.csv
-dataset/custom/wallets_features_extended.csv
+dataset/custom/train_test_split/users_only
+dataset/custom
+dataset/graph
+
+nn-tests/checkpoints
+nn-tests/
+GANs
