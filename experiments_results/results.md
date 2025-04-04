@@ -7,7 +7,8 @@
 | Wallets + users  | Paper | XGB | 0.9006 | 0.7595 | ?
 | Wallets only | Fixed | RF | 0.2378 | 0.1477 | ?
 | Wallets only | Fixed | XGB | 0.3682 | 0.3829 | ?
-| Wallets + users | Fixed | XGB | **0.4102** | 0.4277 | 0.9807
+| Wallets + users | Fixed | XGB | **0.4102** | **0.4277** | 0.9807
+| Wallets + users + Exchanges | Fixed | XGB | **0.4314** | **0.4220** | 0.9807
 | Wallets + users | Fixed | XGB + users_heuristic | 0.3959 | **0.5560** | 0.9800
 
 (users heuristic - only for users with addresses number in (10 .. 1000))

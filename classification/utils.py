@@ -196,7 +196,7 @@ def get_best_threshold(pred_probas, y_true, plot=True, thrs_cnt=20, return_hists
     }
 
 
-def print_confusion_matrix(pred_proba, thr, y_true):
+def print_confusion_matrix(pred_proba, thr, y_true, with_prec_rec=False):
     y_pred = (pred_proba >= thr).astype(int)
     tp = ((y_pred == 1) & (y_true == 1)).sum()
     fp = ((y_pred == 1) & (y_true == 0)).sum()
@@ -205,6 +205,8 @@ def print_confusion_matrix(pred_proba, thr, y_true):
     print(f"\treal 1\treal 0")
     print(f"pred 1\t{tp}\t{fp}\t")
     print(f"pred 0\t{fn}\t{tn}\t")
+    if with_prec_rec:
+        print(f"Precicion {tp / (tp + fp)}, Recall {tp / (tp + fn)}, ")
 
 def get_addr_position(addrId, wallets_data):
     wallets_addrs = wallets_data["addrId"]
