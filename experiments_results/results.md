@@ -4,7 +4,9 @@
 | Dataset type | Split | Model | Precicion | Recall | Accuracy |
 |----------|----------|----------|----------|----------|----------|
 | Wallets + users  | Paper | RF | 0.9066 | 0.8069 | ?
-| Wallets + users  | Paper | XGB | 0.9006 | 0.7595 | ?
+| Wallets + users  | Paper | XGB | 0.8575 | 0.8032 | 0.9942
+| Wallets + users + exchanges  | Paper | XGB | 0.8604 | 0.7997 | 0.9942
+| Wallets + users  | Paper | XGB + users_heuristic | 0.7960 | **0.8194** | 0.9931
 | Wallets only | Fixed | RF | 0.2378 | 0.1477 | ?
 | Wallets only | Fixed | XGB | 0.3682 | 0.3829 | ?
 | Wallets + users | Fixed | XGB | **0.4102** | **0.4277** | 0.9807
@@ -45,3 +47,35 @@
 | user_whole_fee_5 | 0.0 |
 
 
+## Confusion matrices
+
+### Split from paper - XGBoost
+
+|  | True 1 | True 0 |
+|----------|----------|----------| 
+| pred 1 | 3462 |	575 |	 
+| pred 0	| 848 |	241998	|
+
+
+### Split from paper - XGBoost + users heuristic
+
+|  | True 1 | True 0 |
+|----------|----------|----------| 
+| pred 1 | 3532 |	905 |	 
+| pred 0	| 778 |	241668	|
+
+
+### Correct split - XGBoost
+
+|  | True 1 | True 0 |
+|----------|----------|----------| 
+| pred 1 | 2124 |	3517 |	 
+| pred 0	| 2381 |	273012	|
+
+
+### Correct split - XGBoost + users heuristic
+
+|  | True 1 | True 0 |
+|----------|----------|----------| 
+| pred 1 | 2505 |	3822 |	 
+| pred 0	| 2000 |	272707	|
