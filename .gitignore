@@ -10,4 +10,5 @@ dataset/graph
 
 nn-tests/checkpoints
 nn-tests/
-GANs
+
+*.pth
