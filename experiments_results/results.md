@@ -1,6 +1,8 @@
 # Results on both fixed and paper splits
 
 
+## ML classification models
+
 | Dataset type | Split | Model | Precicion | Recall | Accuracy |
 |----------|----------|----------|----------|----------|----------|
 | Wallets + users  | Paper | RF | 0.9066 | 0.8069 | ?
@@ -14,6 +16,15 @@
 | Wallets + users | Fixed | XGB + users_heuristic | 0.3959 | **0.5560** | 0.9800
 
 (users heuristic - only for users with addresses number in (10 .. 1000))
+
+## Anomaly methods
+
+| Dataset type | Split | Model | Precicion | Recall | Accuracy |
+|----------|----------|----------|----------|----------|----------|
+| Wallets  | Fixed | One class SVM | 0.0132 | 0.3487 | 0.5747
+| Wallets  | Fixed | Isolation forest | 0.0126 | 0.4374 | 0.4463
+| Wallets  | Fixed | Autoencoder | **0.0203** | **0.4565** | **0.6462**
+
 
 ## Feature importances
 
