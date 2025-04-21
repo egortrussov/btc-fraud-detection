@@ -19,11 +19,13 @@
 
 ## Anomaly methods
 
-| Dataset type | Split | Model | Precicion | Recall | Accuracy |
+| Dataset type | Train data | Model | Precicion | Recall | Accuracy |
 |----------|----------|----------|----------|----------|----------|
-| Wallets  | Fixed | One class SVM | 0.0132 | 0.3487 | 0.5747
-| Wallets  | Fixed | Isolation forest | 0.0126 | 0.4374 | 0.4463
-| Wallets  | Fixed | Autoencoder | **0.0203** | **0.4565** | **0.6462**
+| Wallets  | licit+unk | One class SVM | 0.0132 | 0.3487 | 0.5747
+| Wallets  | licit+unk | Isolation forest | 0.0126 | 0.4374 | 0.4463
+| Wallets  | licit | Autoencoder | 0.0186 | 0.4275 | 0.6298
+| Wallets | licit+unk | Autoencoder | **0.0203** | **0.4565** | **0.6462**
+| Wallets + users | licit+unk | Autoencoder | 0.0200 | 0.4668 | 0.6247
 
 
 ## Feature importances
@@ -58,7 +60,9 @@
 | user_whole_fee_5 | 0.0 |
 
 
-## Confusion matrices
+# Confusion matrices
+
+## ML classification models
 
 ### Split from paper - XGBoost
 
@@ -90,3 +94,13 @@
 |----------|----------|----------| 
 | pred 1 | 2505 |	3822 |	 
 | pred 0	| 2000 |	272707	|
+
+
+## Anomaly detection models
+
+### AE on wallets features (licit + unknown)
+
+|  | True 1 | True 0 |
+|----------|----------|----------| 
+| pred 1 | 2016 |	96936 |	 
+| pred 0	| 2489 |	179593	|

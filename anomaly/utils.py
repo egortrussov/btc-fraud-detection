@@ -75,7 +75,7 @@ def print_confusion_matrix(pred_proba, thr, y_true, with_prec_rec=False):
     print(f"pred 1\t{tp}\t{fp}\t")
     print(f"pred 0\t{fn}\t{tn}\t")
     if with_prec_rec:
-        print(f"Precicion {tp / (tp + fp)}, Recall {tp / (tp + fn)}, ")
+        print(f"Precicion {tp / (tp + fp)}, Recall {tp / (tp + fn)}, Acc={(tp+tn)/(tp+tn+fn+fp)}")
 
 def get_anomaly_detection_report(
         licit_labels,
@@ -168,14 +168,14 @@ def get_best_score_threshold(
         best_thr = thrs[np.array(fb_hist).argmax()]
 
         # best_thr = 0.05
-        best_thr = 0.02
+        best_thr = 0.08
         all_preds_best = np.concatenate([
             licit_scores >= best_thr,
             illicit_scores >= best_thr,
             unknown_scores >= best_thr,
         ]).astype(int)
 
-        print_confusion_matrix(all_preds_best, 0.1, all_true)
+        print_confusion_matrix(all_preds_best, 0.1, all_true, with_prec_rec=True)
 
         fig, ax = plt.subplots(1,3,figsize=(15,3))
         print(precicion_hist)

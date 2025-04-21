@@ -290,6 +290,13 @@ def get_best_metric_for_optuna(y_pred, y_true, interval=(0.2, 0.4)):
         metrics_hist.append( fbeta_score(y_true, (y_pred >= thr).astype(int), beta=2) )
     return max(metrics_hist), thrs[np.array(metrics_hist).argmax()]
 
+def get_best_metric_for_optuna_users(y_pred, y_true, interval=(0.2, 0.4)):
+    thrs = np.linspace(interval[0], interval[1], 10)
+    metrics_hist = []
+
+    for thr in thrs:
+        metrics_hist.append( fbeta_score(y_true, (y_pred >= thr).astype(int), beta=2) )
+    return max(metrics_hist), thrs[np.array(metrics_hist).argmax()]
 
 def get_not_found_fraud_wallets(pred_classes, real_classes):
     pass
