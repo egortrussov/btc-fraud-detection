@@ -168,7 +168,8 @@ def get_best_score_threshold(
         best_thr = thrs[np.array(fb_hist).argmax()]
 
         # best_thr = 0.05
-        best_thr = 0.08
+        # best_thr = 0.08
+        best_thr = 0.58
         all_preds_best = np.concatenate([
             licit_scores >= best_thr,
             illicit_scores >= best_thr,

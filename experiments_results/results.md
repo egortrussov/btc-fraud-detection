@@ -11,9 +11,12 @@
 | Wallets + users  | Paper | XGB + users_heuristic | 0.7960 | **0.8194** | 0.9931
 | Wallets only | Fixed | RF | 0.2378 | 0.1477 | ?
 | Wallets only | Fixed | XGB | 0.3682 | 0.3829 | ?
-| Wallets + users | Fixed | XGB | **0.4102** | **0.4277** | 0.9807
+| Wallets + users | Fixed | XGB | 0.4102 | 0.4277 | 0.9807
 | Wallets + users + Exchanges | Fixed | XGB | **0.4314** | **0.4220** | 0.9807
+| **Wallets + users + Exchanges + VAE score** | Fixed | XGB | **0.4386** | **0.4801** | **0.9818**
 | Wallets + users | Fixed | XGB + users_heuristic | 0.3959 | **0.5560** | 0.9800
+| **Wallets + users + Exchanges + VAE score** | Fixed | XGB + users_heuristic | **0.4104** | **0.5562** | **0.9800**
+
 
 (users heuristic - only for users with addresses number in (10 .. 1000))
 
@@ -26,6 +29,8 @@
 | Wallets  | licit | Autoencoder | 0.0186 | 0.4275 | 0.6298
 | Wallets | licit+unk | Autoencoder | **0.0203** | **0.4565** | **0.6462**
 | Wallets + users | licit+unk | Autoencoder | 0.0200 | 0.4668 | 0.6247
+| Wallets | licit+unk | VAE | 0.0245 | 0.4030 | 0.7329
+
 
 
 ## Feature importances
